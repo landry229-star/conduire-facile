@@ -220,19 +220,33 @@ function PanneauxPage() {
       </main>
 
       {/* CTA */}
-      <section className="px-5 pb-16">
+      <section className="grid gap-4 px-5 pb-16 md:grid-cols-2">
         <div className="rounded-xl bg-benin-green/5 p-6 ring-1 ring-benin-green/20">
           <h3 className="text-base font-semibold text-charcoal">
-            Prêt pour l'examen de code ?
+            Quiz panneaux — testez-vous
           </h3>
           <p className="mt-1 text-sm text-charcoal/60">
-            Testez vos connaissances avec notre quiz d'évaluation gratuit.
+            12 questions à choix multiples avec correction et explications.
+          </p>
+          <Link
+            to="/quiz-panneaux"
+            className="mt-4 inline-flex items-center gap-2 rounded-md bg-benin-green px-4 py-2.5 text-sm font-medium text-white ring-1 ring-benin-green"
+          >
+            Passer le quiz panneaux <ChevronRight className="size-4" />
+          </Link>
+        </div>
+        <div className="rounded-xl bg-white p-6 ring-1 ring-charcoal/10">
+          <h3 className="text-base font-semibold text-charcoal">
+            Quiz d'évaluation par catégorie
+          </h3>
+          <p className="mt-1 text-sm text-charcoal/60">
+            Évaluez votre niveau par type de permis (moto, voiture, poids lourd…).
           </p>
           <Link
             to="/quiz"
-            className="mt-4 inline-flex items-center gap-2 rounded-md bg-benin-green px-4 py-2.5 text-sm font-medium text-white ring-1 ring-benin-green"
+            className="mt-4 inline-flex items-center gap-2 rounded-md bg-charcoal px-4 py-2.5 text-sm font-medium text-white"
           >
-            Passer le quiz <ChevronRight className="size-4" />
+            Quiz par catégorie <ChevronRight className="size-4" />
           </Link>
         </div>
       </section>
