@@ -207,12 +207,20 @@ function Index() {
             L'Excellence
           </span>
         </a>
-        <a
-          href="#contact"
-          className="rounded-full px-3 py-1.5 text-xs font-medium ring-1 ring-charcoal/10 transition-colors hover:bg-white"
-        >
-          S'inscrire
-        </a>
+        <div className="flex items-center gap-2">
+          <Link
+            to="/quiz"
+            className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium text-benin-green ring-1 ring-benin-green/30 transition-colors hover:bg-benin-green/5"
+          >
+            <ClipboardCheck className="size-3" /> Quiz
+          </Link>
+          <a
+            href="#contact"
+            className="rounded-full px-3 py-1.5 text-xs font-medium ring-1 ring-charcoal/10 transition-colors hover:bg-white"
+          >
+            S'inscrire
+          </a>
+        </div>
       </nav>
 
       {/* Hero */}
