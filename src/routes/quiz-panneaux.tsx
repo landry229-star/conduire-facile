@@ -212,17 +212,42 @@ const questions: SignQuestion[] = [
   },
 ];
 
+const QUIZ_SIZE = 8;
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildDeck(): SignQuestion[] {
+  return shuffle(questions)
+    .slice(0, Math.min(QUIZ_SIZE, questions.length))
+    .map((qst) => {
+      const indices = shuffle(qst.options.map((_, i) => i));
+      return {
+        ...qst,
+        options: indices.map((i) => qst.options[i]),
+        answer: indices.indexOf(qst.answer),
+      };
+    });
+}
+
 function QuizPanneauxPage() {
+  const [deck, setDeck] = useState<SignQuestion[]>(() => buildDeck());
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [answers, setAnswers] = useState<number[]>([]);
   const [finished, setFinished] = useState(false);
 
-  const q = questions[current];
-  const isLast = current === questions.length - 1;
+  const q = deck[current];
+  const isLast = current === deck.length - 1;
   const score = useMemo(
-    () => answers.filter((a, i) => a === questions[i].answer).length,
-    [answers],
+    () => answers.filter((a, i) => a === deck[i].answer).length,
+    [answers, deck],
   );
 
   function submit() {
@@ -240,6 +265,7 @@ function QuizPanneauxPage() {
   }
 
   function restart() {
+    setDeck(buildDeck());
     setCurrent(0);
     setSelected(null);
     setAnswers([]);
