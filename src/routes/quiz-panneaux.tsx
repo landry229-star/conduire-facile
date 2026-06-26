@@ -303,7 +303,7 @@ function QuizPanneauxPage() {
             Reconnaissez-vous tous les panneaux ?
           </h1>
           <p className="text-pretty text-base text-charcoal/70">
-            {questions.length} questions à choix multiples. Correction
+            {QUIZ_SIZE} questions à choix multiples. Correction
             instantanée et explication après chaque réponse.
           </p>
         </div>
@@ -315,13 +315,13 @@ function QuizPanneauxPage() {
             {/* Progress */}
             <div className="mb-6 flex items-center justify-between text-xs text-charcoal/60">
               <span>
-                Question {current + 1} / {questions.length}
+                Question {current + 1} / {deck.length}
               </span>
               <div className="h-1 flex-1 mx-4 overflow-hidden rounded-full bg-charcoal/10">
                 <div
                   className="h-full bg-benin-green transition-all"
                   style={{
-                    width: `${((current + (showCorrection ? 1 : 0)) / questions.length) * 100}%`,
+                    width: `${((current + (showCorrection ? 1 : 0)) / deck.length) * 100}%`,
                   }}
                 />
               </div>
@@ -433,14 +433,14 @@ function QuizPanneauxPage() {
               </p>
               <p className="mt-3 text-5xl font-semibold">
                 {score}
-                <span className="text-charcoal/40"> / {questions.length}</span>
+                <span className="text-charcoal/40"> / {deck.length}</span>
               </p>
               <p className="mt-4 text-sm text-charcoal/70">
-                {score === questions.length
+                {score === deck.length
                   ? "Parfait ! Vous maîtrisez la signalisation."
-                  : score >= questions.length * 0.7
+                  : score >= deck.length * 0.7
                     ? "Très bon niveau. Quelques révisions et vous serez prêt."
-                    : score >= questions.length * 0.5
+                    : score >= deck.length * 0.5
                       ? "Niveau correct. Une formation structurée vous aidera à progresser."
                       : "La signalisation demande de la pratique. Inscrivez-vous pour progresser rapidement."}
               </p>
