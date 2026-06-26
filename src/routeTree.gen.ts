@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as QuizRouteImport } from './routes/quiz'
+import { Route as PanneauxRouteImport } from './routes/panneaux'
 import { Route as IndexRouteImport } from './routes/index'
 
 const QuizRoute = QuizRouteImport.update({
   id: '/quiz',
   path: '/quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PanneauxRoute = PanneauxRouteImport.update({
+  id: '/panneaux',
+  path: '/panneaux',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,27 +31,31 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/quiz'
+  fullPaths: '/' | '/panneaux' | '/quiz'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/quiz'
-  id: '__root__' | '/' | '/quiz'
+  to: '/' | '/panneaux' | '/quiz'
+  id: '__root__' | '/' | '/panneaux' | '/quiz'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PanneauxRoute: typeof PanneauxRoute
   QuizRoute: typeof QuizRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/quiz'
       fullPath: '/quiz'
       preLoaderRoute: typeof QuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/panneaux': {
+      id: '/panneaux'
+      path: '/panneaux'
+      fullPath: '/panneaux'
+      preLoaderRoute: typeof PanneauxRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PanneauxRoute: PanneauxRoute,
   QuizRoute: QuizRoute,
 }
 export const routeTree = rootRouteImport

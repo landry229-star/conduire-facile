@@ -1,6 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check, ClipboardCheck } from "lucide-react";
+import { ArrowRight, Check, ClipboardCheck, Signpost } from "lucide-react";
 import heroImage from "@/assets/hero-formation.jpg";
+import {
+  SignShape,
+  VirageDroiteIcon,
+  NoLeftTurnIcon,
+  TournerDroiteIcon,
+  SensUniqueIcon,
+} from "@/components/TrafficSign";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -209,6 +216,12 @@ function Index() {
         </a>
         <div className="flex items-center gap-2">
           <Link
+            to="/panneaux"
+            className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium text-benin-red ring-1 ring-benin-red/30 transition-colors hover:bg-benin-red/5"
+          >
+            <Signpost className="size-3" /> Panneaux
+          </Link>
+          <Link
             to="/quiz"
             className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium text-benin-green ring-1 ring-benin-green/30 transition-colors hover:bg-benin-green/5"
           >
@@ -322,6 +335,71 @@ function Index() {
         <p className="mt-6 text-[11px] italic text-charcoal/50">
           Tarifs indicatifs incluant frais de dossier et fournitures pédagogiques.
         </p>
+      </section>
+
+      {/* Panneaux demo */}
+      <section className="px-5 py-14">
+        <div className="mb-8 flex items-end justify-between">
+          <div>
+            <h2 className="mb-2 text-xl font-semibold md:text-2xl">
+              Apprenez les panneaux
+            </h2>
+            <div className="h-1 w-12 bg-benin-yellow" />
+          </div>
+          <Link
+            to="/panneaux"
+            className="hidden text-xs font-medium text-benin-green hover:underline sm:inline-flex"
+          >
+            Voir la galerie complète →
+          </Link>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              type: "danger" as const,
+              icon: <VirageDroiteIcon />,
+              title: "Virage dangereux à droite",
+              desc: "Réduisez votre vitesse. La route tourne brusquement.",
+            },
+            {
+              type: "interdiction" as const,
+              icon: <NoLeftTurnIcon />,
+              title: "Interdiction de tourner à gauche",
+              desc: "Continuez tout droit ou tournez à droite.",
+            },
+            {
+              type: "obligation" as const,
+              icon: <TournerDroiteIcon />,
+              title: "Virage à droite obligatoire",
+              desc: "Suivez la flèche. Aucune autre direction possible.",
+            },
+            {
+              type: "indication" as const,
+              icon: <SensUniqueIcon />,
+              title: "Sens unique",
+              desc: "La circulation est autorisée uniquement dans ce sens.",
+            },
+          ].map((s) => (
+            <div
+              key={s.title}
+              className="flex flex-col items-center rounded-xl bg-white p-5 text-center ring-1 ring-black/5"
+            >
+              <div className="mb-3 size-20">
+                <SignShape type={s.type} icon={s.icon} />
+              </div>
+              <h3 className="text-sm font-semibold">{s.title}</h3>
+              <p className="mt-1 text-xs leading-relaxed text-charcoal/60">
+                {s.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+        <Link
+          to="/panneaux"
+          className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-benin-green hover:underline sm:hidden"
+        >
+          <Signpost className="size-4" /> Voir la galerie complète →
+        </Link>
       </section>
 
 
