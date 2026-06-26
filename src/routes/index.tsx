@@ -301,10 +301,29 @@ function Index() {
           ))}
         </div>
 
+        <div className="mt-6 flex flex-col items-start justify-between gap-3 rounded-xl bg-benin-green/5 p-5 ring-1 ring-benin-green/20 sm:flex-row sm:items-center">
+          <div>
+            <div className="text-sm font-semibold text-charcoal">
+              Pas sûr de votre niveau ?
+            </div>
+            <p className="mt-1 text-xs text-charcoal/60">
+              Faites le quiz d'évaluation gratuit pour votre catégorie avant de
+              vous inscrire.
+            </p>
+          </div>
+          <Link
+            to="/quiz"
+            className="inline-flex shrink-0 items-center gap-2 rounded-md bg-benin-green px-4 py-2.5 text-sm font-medium text-white ring-1 ring-benin-green"
+          >
+            <ClipboardCheck className="size-4" /> Passer le quiz
+          </Link>
+        </div>
+
         <p className="mt-6 text-[11px] italic text-charcoal/50">
           Tarifs indicatifs incluant frais de dossier et fournitures pédagogiques.
         </p>
       </section>
+
 
       {/* Methodology */}
       <section className="bg-zinc-900 px-5 py-16 text-ivory">
