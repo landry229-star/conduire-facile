@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as QuizPanneauxRouteImport } from './routes/quiz-panneaux'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as PanneauxRouteImport } from './routes/panneaux'
 import { Route as IndexRouteImport } from './routes/index'
 
+const QuizPanneauxRoute = QuizPanneauxRouteImport.update({
+  id: '/quiz-panneaux',
+  path: '/quiz-panneaux',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuizRoute = QuizRouteImport.update({
   id: '/quiz',
   path: '/quiz',
@@ -33,34 +39,45 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
+  '/quiz-panneaux': typeof QuizPanneauxRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
+  '/quiz-panneaux': typeof QuizPanneauxRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
+  '/quiz-panneaux': typeof QuizPanneauxRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/panneaux' | '/quiz'
+  fullPaths: '/' | '/panneaux' | '/quiz' | '/quiz-panneaux'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/panneaux' | '/quiz'
-  id: '__root__' | '/' | '/panneaux' | '/quiz'
+  to: '/' | '/panneaux' | '/quiz' | '/quiz-panneaux'
+  id: '__root__' | '/' | '/panneaux' | '/quiz' | '/quiz-panneaux'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PanneauxRoute: typeof PanneauxRoute
   QuizRoute: typeof QuizRoute
+  QuizPanneauxRoute: typeof QuizPanneauxRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/quiz-panneaux': {
+      id: '/quiz-panneaux'
+      path: '/quiz-panneaux'
+      fullPath: '/quiz-panneaux'
+      preLoaderRoute: typeof QuizPanneauxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/quiz': {
       id: '/quiz'
       path: '/quiz'
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PanneauxRoute: PanneauxRoute,
   QuizRoute: QuizRoute,
+  QuizPanneauxRoute: QuizPanneauxRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
