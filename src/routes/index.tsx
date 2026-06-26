@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Check } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, Check, ClipboardCheck } from "lucide-react";
 import heroImage from "@/assets/hero-formation.jpg";
 
 export const Route = createFileRoute("/")({
@@ -207,12 +207,20 @@ function Index() {
             L'Excellence
           </span>
         </a>
-        <a
-          href="#contact"
-          className="rounded-full px-3 py-1.5 text-xs font-medium ring-1 ring-charcoal/10 transition-colors hover:bg-white"
-        >
-          S'inscrire
-        </a>
+        <div className="flex items-center gap-2">
+          <Link
+            to="/quiz"
+            className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium text-benin-green ring-1 ring-benin-green/30 transition-colors hover:bg-benin-green/5"
+          >
+            <ClipboardCheck className="size-3" /> Quiz
+          </Link>
+          <a
+            href="#contact"
+            className="rounded-full px-3 py-1.5 text-xs font-medium ring-1 ring-charcoal/10 transition-colors hover:bg-white"
+          >
+            S'inscrire
+          </a>
+        </div>
       </nav>
 
       {/* Hero */}
@@ -293,10 +301,29 @@ function Index() {
           ))}
         </div>
 
+        <div className="mt-6 flex flex-col items-start justify-between gap-3 rounded-xl bg-benin-green/5 p-5 ring-1 ring-benin-green/20 sm:flex-row sm:items-center">
+          <div>
+            <div className="text-sm font-semibold text-charcoal">
+              Pas sûr de votre niveau ?
+            </div>
+            <p className="mt-1 text-xs text-charcoal/60">
+              Faites le quiz d'évaluation gratuit pour votre catégorie avant de
+              vous inscrire.
+            </p>
+          </div>
+          <Link
+            to="/quiz"
+            className="inline-flex shrink-0 items-center gap-2 rounded-md bg-benin-green px-4 py-2.5 text-sm font-medium text-white ring-1 ring-benin-green"
+          >
+            <ClipboardCheck className="size-4" /> Passer le quiz
+          </Link>
+        </div>
+
         <p className="mt-6 text-[11px] italic text-charcoal/50">
           Tarifs indicatifs incluant frais de dossier et fournitures pédagogiques.
         </p>
       </section>
+
 
       {/* Methodology */}
       <section className="bg-zinc-900 px-5 py-16 text-ivory">
