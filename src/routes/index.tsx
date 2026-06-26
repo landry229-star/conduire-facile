@@ -209,6 +209,12 @@ function Index() {
         </a>
         <div className="flex items-center gap-2">
           <Link
+            to="/panneaux"
+            className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium text-benin-red ring-1 ring-benin-red/30 transition-colors hover:bg-benin-red/5"
+          >
+            <Signpost className="size-3" /> Panneaux
+          </Link>
+          <Link
             to="/quiz"
             className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium text-benin-green ring-1 ring-benin-green/30 transition-colors hover:bg-benin-green/5"
           >
