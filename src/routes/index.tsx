@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check, ClipboardCheck } from "lucide-react";
+import { ArrowRight, Check, ClipboardCheck, Signpost } from "lucide-react";
 import heroImage from "@/assets/hero-formation.jpg";
 
 export const Route = createFileRoute("/")({
