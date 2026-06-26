@@ -1,6 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, ClipboardCheck, Signpost } from "lucide-react";
 import heroImage from "@/assets/hero-formation.jpg";
+import {
+  SignShape,
+  VirageDroiteIcon,
+  NoLeftTurnIcon,
+  TournerDroiteIcon,
+  SensUniqueIcon,
+} from "@/components/TrafficSign";
 
 export const Route = createFileRoute("/")({
   head: () => ({
