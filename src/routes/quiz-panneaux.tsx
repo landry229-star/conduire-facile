@@ -212,17 +212,42 @@ const questions: SignQuestion[] = [
   },
 ];
 
+const QUIZ_SIZE = 8;
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildDeck(): SignQuestion[] {
+  return shuffle(questions)
+    .slice(0, Math.min(QUIZ_SIZE, questions.length))
+    .map((qst) => {
+      const indices = shuffle(qst.options.map((_, i) => i));
+      return {
+        ...qst,
+        options: indices.map((i) => qst.options[i]),
+        answer: indices.indexOf(qst.answer),
+      };
+    });
+}
+
 function QuizPanneauxPage() {
+  const [deck, setDeck] = useState<SignQuestion[]>(() => buildDeck());
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [answers, setAnswers] = useState<number[]>([]);
   const [finished, setFinished] = useState(false);
 
-  const q = questions[current];
-  const isLast = current === questions.length - 1;
+  const q = deck[current];
+  const isLast = current === deck.length - 1;
   const score = useMemo(
-    () => answers.filter((a, i) => a === questions[i].answer).length,
-    [answers],
+    () => answers.filter((a, i) => a === deck[i].answer).length,
+    [answers, deck],
   );
 
   function submit() {
@@ -240,6 +265,7 @@ function QuizPanneauxPage() {
   }
 
   function restart() {
+    setDeck(buildDeck());
     setCurrent(0);
     setSelected(null);
     setAnswers([]);
@@ -277,7 +303,7 @@ function QuizPanneauxPage() {
             Reconnaissez-vous tous les panneaux ?
           </h1>
           <p className="text-pretty text-base text-charcoal/70">
-            {questions.length} questions à choix multiples. Correction
+            {QUIZ_SIZE} questions à choix multiples. Correction
             instantanée et explication après chaque réponse.
           </p>
         </div>
@@ -289,13 +315,13 @@ function QuizPanneauxPage() {
             {/* Progress */}
             <div className="mb-6 flex items-center justify-between text-xs text-charcoal/60">
               <span>
-                Question {current + 1} / {questions.length}
+                Question {current + 1} / {deck.length}
               </span>
               <div className="h-1 flex-1 mx-4 overflow-hidden rounded-full bg-charcoal/10">
                 <div
                   className="h-full bg-benin-green transition-all"
                   style={{
-                    width: `${((current + (showCorrection ? 1 : 0)) / questions.length) * 100}%`,
+                    width: `${((current + (showCorrection ? 1 : 0)) / deck.length) * 100}%`,
                   }}
                 />
               </div>
@@ -407,14 +433,14 @@ function QuizPanneauxPage() {
               </p>
               <p className="mt-3 text-5xl font-semibold">
                 {score}
-                <span className="text-charcoal/40"> / {questions.length}</span>
+                <span className="text-charcoal/40"> / {deck.length}</span>
               </p>
               <p className="mt-4 text-sm text-charcoal/70">
-                {score === questions.length
+                {score === deck.length
                   ? "Parfait ! Vous maîtrisez la signalisation."
-                  : score >= questions.length * 0.7
+                  : score >= deck.length * 0.7
                     ? "Très bon niveau. Quelques révisions et vous serez prêt."
-                    : score >= questions.length * 0.5
+                    : score >= deck.length * 0.5
                       ? "Niveau correct. Une formation structurée vous aidera à progresser."
                       : "La signalisation demande de la pratique. Inscrivez-vous pour progresser rapidement."}
               </p>
