@@ -222,10 +222,14 @@ export function ParkingIcon() {
   );
 }
 
-export function VitesseIcon(limit: string) {
-  return function VitesseLimitComponent() {
-    return (
-      <text x="50" y="62" textAnchor="middle" fill="#18181b" fontSize="28" fontWeight="bold" fontFamily="sans-serif">{limit}</text>
-    );
-  };
+export function Vitesse50Icon() {
+  return (
+    <text x="50" y="62" textAnchor="middle" fill="#18181b" fontSize="28" fontWeight="bold" fontFamily="sans-serif">50</text>
+  );
+}
+
+export function Vitesse30Icon() {
+  return (
+    <text x="50" y="62" textAnchor="middle" fill="#18181b" fontSize="28" fontWeight="bold" fontFamily="sans-serif">30</text>
+  );
 }
