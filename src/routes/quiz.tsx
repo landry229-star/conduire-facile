@@ -352,12 +352,20 @@ function QuizPage() {
             L'Excellence
           </span>
         </Link>
-        <Link
-          to="/"
-          className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium ring-1 ring-charcoal/10 transition-colors hover:bg-white"
-        >
-          <ArrowLeft className="size-3" /> Accueil
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            to="/panneaux"
+            className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium text-benin-red ring-1 ring-benin-red/30 transition-colors hover:bg-benin-red/5"
+          >
+            <Signpost className="size-3" /> Panneaux
+          </Link>
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium ring-1 ring-charcoal/10 transition-colors hover:bg-white"
+          >
+            <ArrowLeft className="size-3" /> Accueil
+          </Link>
+        </div>
       </nav>
 
       <header className="px-5 pb-2 pt-10">
