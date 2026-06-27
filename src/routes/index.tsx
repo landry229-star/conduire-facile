@@ -203,7 +203,9 @@ const faqs = [
 ];
 
 function Index() {
+  const navigate = useNavigate();
   return (
+
     <div className="min-h-screen bg-ivory text-charcoal">
       {/* Navigation */}
       <nav className="sticky top-0 z-40 flex items-center justify-between border-b border-charcoal/5 bg-ivory/90 px-5 py-4 backdrop-blur-md">
