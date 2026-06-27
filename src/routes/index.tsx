@@ -525,6 +525,28 @@ function Index() {
                 <option>Porto-Novo</option>
               </select>
             </div>
+            <div>
+              <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-wider text-charcoal/50">
+                Phase théorique (code)
+              </label>
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                <label className="flex cursor-pointer items-start gap-2 rounded-md bg-zinc-50 p-3 ring-1 ring-charcoal/10 has-[:checked]:bg-benin-green/5 has-[:checked]:ring-benin-green">
+                  <input type="radio" name="phase" value="en-ligne" defaultChecked className="mt-0.5 accent-benin-green" />
+                  <span className="text-xs">
+                    <span className="block font-semibold">En ligne</span>
+                    <span className="text-charcoal/60">Cours et quiz depuis chez vous, à votre rythme.</span>
+                  </span>
+                </label>
+                <label className="flex cursor-pointer items-start gap-2 rounded-md bg-zinc-50 p-3 ring-1 ring-charcoal/10 has-[:checked]:bg-benin-green/5 has-[:checked]:ring-benin-green">
+                  <input type="radio" name="phase" value="sur-place" className="mt-0.5 accent-benin-green" />
+                  <span className="text-xs">
+                    <span className="block font-semibold">Sur place</span>
+                    <span className="text-charcoal/60">En salle avec un moniteur, horaires fixes.</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
             <button
               type="submit"
               className="flex w-full items-center justify-center gap-2 rounded-md bg-benin-red py-3 text-sm font-medium text-white transition-transform active:scale-[0.98]"
