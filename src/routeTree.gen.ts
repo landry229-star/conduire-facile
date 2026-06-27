@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TheorieRouteImport } from './routes/theorie'
 import { Route as QuizPanneauxRouteImport } from './routes/quiz-panneaux'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as PanneauxRouteImport } from './routes/panneaux'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TheorieRoute = TheorieRouteImport.update({
+  id: '/theorie',
+  path: '/theorie',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuizPanneauxRoute = QuizPanneauxRouteImport.update({
   id: '/quiz-panneaux',
   path: '/quiz-panneaux',
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
   '/quiz-panneaux': typeof QuizPanneauxRoute
+  '/theorie': typeof TheorieRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
   '/quiz-panneaux': typeof QuizPanneauxRoute
+  '/theorie': typeof TheorieRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
   '/quiz-panneaux': typeof QuizPanneauxRoute
+  '/theorie': typeof TheorieRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/panneaux' | '/quiz' | '/quiz-panneaux'
+  fullPaths: '/' | '/panneaux' | '/quiz' | '/quiz-panneaux' | '/theorie'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/panneaux' | '/quiz' | '/quiz-panneaux'
-  id: '__root__' | '/' | '/panneaux' | '/quiz' | '/quiz-panneaux'
+  to: '/' | '/panneaux' | '/quiz' | '/quiz-panneaux' | '/theorie'
+  id: '__root__' | '/' | '/panneaux' | '/quiz' | '/quiz-panneaux' | '/theorie'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +76,18 @@ export interface RootRouteChildren {
   PanneauxRoute: typeof PanneauxRoute
   QuizRoute: typeof QuizRoute
   QuizPanneauxRoute: typeof QuizPanneauxRoute
+  TheorieRoute: typeof TheorieRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/theorie': {
+      id: '/theorie'
+      path: '/theorie'
+      fullPath: '/theorie'
+      preLoaderRoute: typeof TheorieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/quiz-panneaux': {
       id: '/quiz-panneaux'
       path: '/quiz-panneaux'
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   PanneauxRoute: PanneauxRoute,
   QuizRoute: QuizRoute,
   QuizPanneauxRoute: QuizPanneauxRoute,
+  TheorieRoute: TheorieRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

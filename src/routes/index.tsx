@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Check, ClipboardCheck, Signpost } from "lucide-react";
 import heroImage from "@/assets/hero-formation.jpg";
 import {
@@ -8,6 +8,7 @@ import {
   TournerDroiteIcon,
   SensUniqueIcon,
 } from "@/components/TrafficSign";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -202,7 +203,9 @@ const faqs = [
 ];
 
 function Index() {
+  const navigate = useNavigate();
   return (
+
     <div className="min-h-screen bg-ivory text-charcoal">
       {/* Navigation */}
       <nav className="sticky top-0 z-40 flex items-center justify-between border-b border-charcoal/5 bg-ivory/90 px-5 py-4 backdrop-blur-md">
@@ -475,10 +478,19 @@ function Index() {
             onSubmit={(e) => {
               e.preventDefault();
               const form = e.currentTarget;
+              const data = new FormData(form);
+              const phase = data.get("phase");
               form.reset();
-              alert("Merci, nous vous recontactons sous 24h.");
+              if (phase === "en-ligne") {
+                navigate({ to: "/theorie" });
+              } else {
+                alert(
+                  "Merci ! Un conseiller vous rappelle sous 24h pour planifier vos séances de code en salle.",
+                );
+              }
             }}
           >
+
             <div>
               <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-wider text-charcoal/50">
                 Nom complet
