@@ -230,6 +230,12 @@ function Index() {
           >
             <ClipboardCheck className="size-3" /> Quiz
           </Link>
+          <Link
+            to="/examen"
+            className="inline-flex items-center gap-1 rounded-full bg-benin-green px-3 py-1.5 text-xs font-medium text-white ring-1 ring-benin-green transition-colors hover:bg-benin-green/90"
+          >
+            <ClipboardCheck className="size-3" /> Examen
+          </Link>
           <a
             href="#contact"
             className="rounded-full px-3 py-1.5 text-xs font-medium ring-1 ring-charcoal/10 transition-colors hover:bg-white"

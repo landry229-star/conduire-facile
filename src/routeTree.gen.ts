@@ -13,6 +13,7 @@ import { Route as TheorieRouteImport } from './routes/theorie'
 import { Route as QuizPanneauxRouteImport } from './routes/quiz-panneaux'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as PanneauxRouteImport } from './routes/panneaux'
+import { Route as ExamenRouteImport } from './routes/examen'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TheorieRoute = TheorieRouteImport.update({
@@ -35,6 +36,11 @@ const PanneauxRoute = PanneauxRouteImport.update({
   path: '/panneaux',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExamenRoute = ExamenRouteImport.update({
+  id: '/examen',
+  path: '/examen',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,6 +49,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/examen': typeof ExamenRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
   '/quiz-panneaux': typeof QuizPanneauxRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/examen': typeof ExamenRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
   '/quiz-panneaux': typeof QuizPanneauxRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/examen': typeof ExamenRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
   '/quiz-panneaux': typeof QuizPanneauxRoute
@@ -65,14 +74,28 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/panneaux' | '/quiz' | '/quiz-panneaux' | '/theorie'
+  fullPaths:
+    | '/'
+    | '/examen'
+    | '/panneaux'
+    | '/quiz'
+    | '/quiz-panneaux'
+    | '/theorie'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/panneaux' | '/quiz' | '/quiz-panneaux' | '/theorie'
-  id: '__root__' | '/' | '/panneaux' | '/quiz' | '/quiz-panneaux' | '/theorie'
+  to: '/' | '/examen' | '/panneaux' | '/quiz' | '/quiz-panneaux' | '/theorie'
+  id:
+    | '__root__'
+    | '/'
+    | '/examen'
+    | '/panneaux'
+    | '/quiz'
+    | '/quiz-panneaux'
+    | '/theorie'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ExamenRoute: typeof ExamenRoute
   PanneauxRoute: typeof PanneauxRoute
   QuizRoute: typeof QuizRoute
   QuizPanneauxRoute: typeof QuizPanneauxRoute
@@ -109,6 +132,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanneauxRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/examen': {
+      id: '/examen'
+      path: '/examen'
+      fullPath: '/examen'
+      preLoaderRoute: typeof ExamenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -121,6 +151,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ExamenRoute: ExamenRoute,
   PanneauxRoute: PanneauxRoute,
   QuizRoute: QuizRoute,
   QuizPanneauxRoute: QuizPanneauxRoute,
@@ -129,13 +160,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
