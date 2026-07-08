@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, Check, RotateCcw, X, ChevronRight } from "lucide-react";
+import { recordQuizAttempt } from "@/lib/progress-sync";
+
 import {
   SignShape,
   VirageDroiteIcon,
@@ -249,6 +251,13 @@ function QuizPanneauxPage() {
     () => answers.filter((a, i) => a === deck[i].answer).length,
     [answers, deck],
   );
+
+  useEffect(() => {
+    if (finished) void recordQuizAttempt("panneaux", score, deck.length);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [finished]);
+
+
 
   function submit() {
     if (selected === null) return;

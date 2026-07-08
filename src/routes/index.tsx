@@ -8,6 +8,8 @@ import {
   TournerDroiteIcon,
   SensUniqueIcon,
 } from "@/components/TrafficSign";
+import { AuthNavButton } from "@/components/AuthNavButton";
+
 
 
 export const Route = createFileRoute("/")({
@@ -238,12 +240,14 @@ function Index() {
           </Link>
           <a
             href="#contact"
-            className="rounded-full px-3 py-1.5 text-xs font-medium ring-1 ring-charcoal/10 transition-colors hover:bg-white"
+            className="hidden sm:inline-flex rounded-full px-3 py-1.5 text-xs font-medium ring-1 ring-charcoal/10 transition-colors hover:bg-white"
           >
             S'inscrire
           </a>
+          <AuthNavButton />
         </div>
       </nav>
+
 
       {/* Hero */}
       <section id="top" className="px-5 pb-2 pt-10">

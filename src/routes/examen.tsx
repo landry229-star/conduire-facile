@@ -11,6 +11,8 @@ import {
   RotateCcw,
   ShieldAlert,
 } from "lucide-react";
+import { recordExamAttempt } from "@/lib/progress-sync";
+
 import {
   SignShape,
   VirageDroiteIcon,
@@ -387,6 +389,16 @@ function ExamenPage() {
     [answers, deck],
   );
   const passed = phase !== "exam" && deck.length > 0 && score / deck.length >= PASS_RATIO;
+
+  const recordedRef = useRef(false);
+  useEffect(() => {
+    if (phase === "result" && !recordedRef.current && deck.length > 0) {
+      recordedRef.current = true;
+      void recordExamAttempt(null, score, deck.length, passed, null);
+    }
+    if (phase === "intro") recordedRef.current = false;
+  }, [phase, score, deck.length, passed]);
+
 
   function issueCertificate() {
     if (!name.trim()) return;
