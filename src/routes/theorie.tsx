@@ -789,7 +789,16 @@ function loadCompleted(): Set<string> {
 function saveCompleted(set: Set<string>) {
   if (typeof window === "undefined") return;
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
+  // Also sync to Cloud when signed in (fire-and-forget)
+  import("@/integrations/supabase/client").then(({ supabase }) => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (!data.user) return;
+      const rows = [...set].map((lesson_id) => ({ user_id: data.user!.id, lesson_id }));
+      if (rows.length) supabase.from("theorie_progress").upsert(rows, { onConflict: "user_id,lesson_id" }).then(() => {});
+    });
+  });
 }
+
 
 /* ───────── Illustrations ───────── */
 
