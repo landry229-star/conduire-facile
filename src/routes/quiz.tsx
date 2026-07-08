@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Signpost } from "lucide-react";
+import { recordQuizAttempt } from "@/lib/progress-sync";
+
 
 export const Route = createFileRoute("/quiz")({
   head: () => ({
@@ -501,12 +503,16 @@ function QuizPage() {
           {!submitted ? (
             <button
               type="button"
-              onClick={() => setSubmitted(true)}
+              onClick={() => {
+                setSubmitted(true);
+                if (active) void recordQuizAttempt(active.slug, score, active.questions.length);
+              }}
               disabled={Object.keys(answers).length < active.questions.length}
               className="mt-6 flex w-full items-center justify-center gap-2 rounded-md bg-benin-green py-3 text-sm font-medium text-white ring-1 ring-benin-green transition-transform active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
             >
               <Check className="size-4" /> Voir mon résultat
             </button>
+
           ) : (
             <div className="mt-6 rounded-xl bg-white p-6 ring-1 ring-black/5">
               <div className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-charcoal/50">
