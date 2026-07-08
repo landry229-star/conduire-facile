@@ -11,6 +11,8 @@ import {
   RotateCcw,
   ShieldAlert,
 } from "lucide-react";
+import { recordExamAttempt } from "@/lib/progress-sync";
+
 import {
   SignShape,
   VirageDroiteIcon,

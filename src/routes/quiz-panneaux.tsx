@@ -252,6 +252,13 @@ function QuizPanneauxPage() {
     [answers, deck],
   );
 
+  useEffect(() => {
+    if (finished) void recordQuizAttempt("panneaux", score, deck.length);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [finished]);
+
+
+
   function submit() {
     if (selected === null) return;
     const next = [...answers, selected];
