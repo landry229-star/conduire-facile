@@ -13,6 +13,7 @@ export async function recordExamAttempt(
   total: number,
   passed: boolean,
   certificate_number: string | null,
+  skills_breakdown?: Record<string, { correct: number; total: number }> | null,
 ) {
   const { data } = await supabase.auth.getUser();
   if (!data.user) return;
@@ -23,5 +24,6 @@ export async function recordExamAttempt(
     total,
     passed,
     certificate_number,
+    skills_breakdown: skills_breakdown ?? null,
   });
 }
