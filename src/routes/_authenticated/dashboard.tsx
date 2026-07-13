@@ -1,12 +1,12 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { BookOpen, ClipboardCheck, Award, Car, CreditCard, User, LogOut, ShieldCheck } from "lucide-react";
-import { toast } from "sonner";
+import { BookOpen, ClipboardCheck, Award, Car, CreditCard } from "lucide-react";
+
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   component: Dashboard,
@@ -15,7 +15,6 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 const TOTAL_LESSONS = 25;
 
 function Dashboard() {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<any>(null);
   const [roles, setRoles] = useState<string[]>([]);
@@ -49,11 +48,8 @@ function Dashboard() {
     })();
   }, []);
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    toast.success("Déconnecté");
-    navigate({ to: "/" });
-  };
+
+
 
   const totalMinutes = hours.reduce((s, h) => s + (h.duration_minutes || 0), 0);
   const paidTotal = payments.filter((p) => p.paid).reduce((s, p) => s + p.amount_fcfa, 0);
