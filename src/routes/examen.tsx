@@ -450,7 +450,7 @@ function ExamenPage() {
   const [selected, setSelected] = useState<number | null>(null);
   const [remaining, setRemaining] = useState(DURATION_SECONDS);
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("B");
+  const [category, setCategory] = useState<CategoryCode>("B");
   const [code, setCode] = useState("");
   const [issuedAt, setIssuedAt] = useState<string>("");
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -462,7 +462,8 @@ function ExamenPage() {
   }, []);
 
   function start() {
-    const d = buildDeck();
+    const d = buildDeck(category);
+
     setDeck(d);
     setAnswers(Array(d.length).fill(null));
     setCurrent(0);
