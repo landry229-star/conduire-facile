@@ -787,8 +787,43 @@ function ExamenPage() {
                 </Link>
               </div>
 
+              {/* Grille de compétences */}
+              <div className="mt-10 text-left">
+                <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-charcoal/60">
+                  Grille de compétences
+                </h3>
+                <div className="space-y-2">
+                  {Object.entries(skillsBreakdown).map(([key, s]) => {
+                    const pct = s.total ? Math.round((s.correct / s.total) * 100) : 0;
+                    const color =
+                      pct >= 80
+                        ? "bg-benin-green"
+                        : pct >= 50
+                        ? "bg-benin-yellow"
+                        : "bg-benin-red";
+                    return (
+                      <div key={key} className="rounded-lg bg-zinc-50 p-3 ring-1 ring-charcoal/5">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="font-medium">{SKILL_LABELS[key as SkillKey] ?? key}</span>
+                          <span className="tabular-nums text-charcoal/70">
+                            {s.correct}/{s.total} · {pct}%
+                          </span>
+                        </div>
+                        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-charcoal/10">
+                          <div className={`h-full ${color} transition-all`} style={{ width: `${pct}%` }} />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <p className="mt-3 text-xs text-charcoal/50">
+                  Concentrez vos révisions sur les compétences en dessous de 80%.
+                </p>
+              </div>
+
               {/* Review */}
               <div className="mt-10 text-left">
+
                 <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-charcoal/60">
                   Correction
                 </h3>
