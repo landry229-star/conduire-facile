@@ -1,12 +1,12 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { BookOpen, ClipboardCheck, Award, Car, CreditCard, User, LogOut, ShieldCheck } from "lucide-react";
-import { toast } from "sonner";
+import { BookOpen, ClipboardCheck, Award, Car, CreditCard } from "lucide-react";
+
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   component: Dashboard,
@@ -15,7 +15,6 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 const TOTAL_LESSONS = 25;
 
 function Dashboard() {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<any>(null);
   const [roles, setRoles] = useState<string[]>([]);
@@ -49,46 +48,22 @@ function Dashboard() {
     })();
   }, []);
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    toast.success("Déconnecté");
-    navigate({ to: "/" });
-  };
+
+
 
   const totalMinutes = hours.reduce((s, h) => s + (h.duration_minutes || 0), 0);
   const paidTotal = payments.filter((p) => p.paid).reduce((s, p) => s + p.amount_fcfa, 0);
   const grandTotal = payments.reduce((s, p) => s + p.amount_fcfa, 0);
   const progressPct = Math.round((lessonsDone / TOTAL_LESSONS) * 100);
-  const isAdmin = roles.includes("admin");
-  const isMoniteur = roles.includes("moniteur");
 
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center">Chargement…</div>;
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <header className="bg-white border-b sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/" className="font-bold text-emerald-700">L'Excellence Auto-École</Link>
-          <div className="flex items-center gap-2">
-            {(isAdmin || isMoniteur) && (
-              <Button size="sm" variant="outline" asChild>
-                <Link to="/admin"><ShieldCheck className="h-4 w-4 mr-1" />Admin</Link>
-              </Button>
-            )}
-            <Button size="sm" variant="outline" asChild>
-              <Link to="/profil"><User className="h-4 w-4 mr-1" />Profil</Link>
-            </Button>
-            <Button size="sm" variant="ghost" onClick={signOut}>
-              <LogOut className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </header>
+    <div className="p-4 md:p-6">
+      <main className="max-w-6xl mx-auto space-y-6">
 
-      <main className="max-w-6xl mx-auto px-4 py-6 space-y-6">
         <div>
           <h1 className="text-2xl font-bold">Bonjour {profile?.full_name || "élève"} 👋</h1>
           <p className="text-slate-600 text-sm">Voici votre tableau de bord de formation.</p>
