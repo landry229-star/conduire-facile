@@ -55,8 +55,6 @@ function Dashboard() {
   const paidTotal = payments.filter((p) => p.paid).reduce((s, p) => s + p.amount_fcfa, 0);
   const grandTotal = payments.reduce((s, p) => s + p.amount_fcfa, 0);
   const progressPct = Math.round((lessonsDone / TOTAL_LESSONS) * 100);
-  const isAdmin = roles.includes("admin");
-  const isMoniteur = roles.includes("moniteur");
 
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center">Chargement…</div>;
