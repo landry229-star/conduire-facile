@@ -33,10 +33,10 @@ function AdminPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8 px-4">
+    <div className="p-4 md:p-6">
       <div className="max-w-6xl mx-auto">
-        <Button asChild variant="ghost" className="mb-4"><Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-1" />Retour au tableau de bord</Link></Button>
         <h1 className="text-2xl font-bold mb-4">Espace admin / moniteur</h1>
+
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card className="md:col-span-1">
