@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { ArrowLeft } from "lucide-react";
+
 
 export const Route = createFileRoute("/_authenticated/profil")({
   component: Profil,
@@ -54,10 +54,10 @@ function Profil() {
   if (loading) return <div className="min-h-screen flex items-center justify-center">Chargement…</div>;
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8 px-4">
+    <div className="p-4 md:p-8">
       <div className="max-w-xl mx-auto">
-        <Button asChild variant="ghost" className="mb-4"><Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-1" />Retour</Link></Button>
         <Card>
+
           <CardHeader><CardTitle>Mon profil</CardTitle></CardHeader>
           <CardContent>
             <form onSubmit={save} className="space-y-4">
