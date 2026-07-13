@@ -63,28 +63,9 @@ function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <header className="bg-white border-b sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/" className="font-bold text-emerald-700">L'Excellence Auto-École</Link>
-          <div className="flex items-center gap-2">
-            {(isAdmin || isMoniteur) && (
-              <Button size="sm" variant="outline" asChild>
-                <Link to="/admin"><ShieldCheck className="h-4 w-4 mr-1" />Admin</Link>
-              </Button>
-            )}
-            <Button size="sm" variant="outline" asChild>
-              <Link to="/profil"><User className="h-4 w-4 mr-1" />Profil</Link>
-            </Button>
-            <Button size="sm" variant="ghost" onClick={signOut}>
-              <LogOut className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </header>
+    <div className="p-4 md:p-6">
+      <main className="max-w-6xl mx-auto space-y-6">
 
-      <main className="max-w-6xl mx-auto px-4 py-6 space-y-6">
         <div>
           <h1 className="text-2xl font-bold">Bonjour {profile?.full_name || "élève"} 👋</h1>
           <p className="text-slate-600 text-sm">Voici votre tableau de bord de formation.</p>
