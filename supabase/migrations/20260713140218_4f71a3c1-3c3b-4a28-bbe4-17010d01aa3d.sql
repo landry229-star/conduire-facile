@@ -1,0 +1,1 @@
+ALTER TABLE public.exam_attempts ADD COLUMN IF NOT EXISTS skills_breakdown jsonb;

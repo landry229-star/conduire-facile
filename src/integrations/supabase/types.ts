@@ -55,6 +55,7 @@ export type Database = {
           id: string
           passed: boolean
           score: number
+          skills_breakdown: Json | null
           total: number
           user_id: string
         }
@@ -65,6 +66,7 @@ export type Database = {
           id?: string
           passed: boolean
           score: number
+          skills_breakdown?: Json | null
           total: number
           user_id: string
         }
@@ -75,6 +77,7 @@ export type Database = {
           id?: string
           passed?: boolean
           score?: number
+          skills_breakdown?: Json | null
           total?: number
           user_id?: string
         }
