@@ -605,6 +605,24 @@ function ExamenPage() {
               </div>
             </div>
 
+            <div className="mt-6 rounded-2xl bg-white p-4 ring-1 ring-black/5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal/60">
+                Catégorie de permis évaluée
+              </label>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value as CategoryCode)}
+                className="mt-2 w-full rounded-md bg-white px-3 py-2 text-sm ring-1 ring-charcoal/15 focus:outline-none focus:ring-benin-green"
+              >
+                {CATEGORIES.map((c) => (
+                  <option key={c.code} value={c.code}>{c.label}</option>
+                ))}
+              </select>
+              <p className="mt-2 text-xs text-charcoal/60">
+                Les questions et l'attestation seront adaptées à cette catégorie.
+              </p>
+            </div>
+
             <div className="mt-6 flex items-start gap-3 rounded-xl bg-benin-yellow/15 p-4 text-sm text-charcoal/80 ring-1 ring-benin-yellow/40">
               <ShieldAlert className="mt-0.5 size-4 shrink-0 text-benin-red" />
               <p>
@@ -614,6 +632,7 @@ function ExamenPage() {
                 réussite à notre examen d'entraînement.
               </p>
             </div>
+
 
             <div className="mt-6">
               <button
