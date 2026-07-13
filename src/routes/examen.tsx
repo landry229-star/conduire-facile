@@ -503,14 +503,26 @@ function ExamenPage() {
   );
   const passed = phase !== "exam" && deck.length > 0 && score / deck.length >= PASS_RATIO;
 
+  const skillsBreakdown = useMemo(() => {
+    const acc: Record<string, { correct: number; total: number }> = {};
+    deck.forEach((qq, i) => {
+      const key = qq.skill;
+      if (!acc[key]) acc[key] = { correct: 0, total: 0 };
+      acc[key].total += 1;
+      if (answers[i] === qq.answer) acc[key].correct += 1;
+    });
+    return acc;
+  }, [deck, answers]);
+
   const recordedRef = useRef(false);
   useEffect(() => {
     if (phase === "result" && !recordedRef.current && deck.length > 0) {
       recordedRef.current = true;
-      void recordExamAttempt(null, score, deck.length, passed, null);
+      void recordExamAttempt(category, score, deck.length, passed, null, skillsBreakdown);
     }
     if (phase === "intro") recordedRef.current = false;
-  }, [phase, score, deck.length, passed]);
+  }, [phase, score, deck.length, passed, category, skillsBreakdown]);
+
 
 
   function issueCertificate() {
