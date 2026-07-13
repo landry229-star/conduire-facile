@@ -51,145 +51,140 @@ export const Route = createFileRoute("/examen")({
   component: ExamenPage,
 });
 
+export type SkillKey =
+  | "panneaux"
+  | "priorites"
+  | "vitesse"
+  | "securite"
+  | "conduite"
+  | "usagers"
+  | "specifique";
+
+export const SKILL_LABELS: Record<SkillKey, string> = {
+  panneaux: "Signalisation & panneaux",
+  priorites: "Priorités & intersections",
+  vitesse: "Limitations de vitesse",
+  securite: "Équipement de sécurité",
+  conduite: "Conduite & état du conducteur",
+  usagers: "Piétons & usagers vulnérables",
+  specifique: "Spécificités de la catégorie",
+};
+
+export const CATEGORIES = [
+  { code: "AM", label: "AM — Cyclomoteur" },
+  { code: "A1", label: "A1 — Moto légère" },
+  { code: "A", label: "A — Moto" },
+  { code: "B", label: "B — Voiture" },
+  { code: "BE", label: "BE — Voiture + remorque" },
+  { code: "C", label: "C — Poids lourd" },
+  { code: "D", label: "D — Transport en commun" },
+  { code: "T", label: "T — Agricole" },
+] as const;
+
+export type CategoryCode = (typeof CATEGORIES)[number]["code"];
+
 type Question = {
   prompt: string;
   sign?: { data: SignData; icon: React.ReactNode };
   options: string[];
   answer: number;
   explain: string;
+  skill: SkillKey;
+  // Categories this question applies to. undefined = all categories.
+  categories?: CategoryCode[];
 };
 
 const BANK: Question[] = [
   {
     prompt: "Que signifie ce panneau ?",
     sign: { data: { type: "stop", label: "", desc: "" }, icon: null },
-    options: [
-      "Ralentir",
-      "Arrêt complet obligatoire",
-      "Priorité",
-      "Stationnement",
-    ],
+    options: ["Ralentir", "Arrêt complet obligatoire", "Priorité", "Stationnement"],
     answer: 1,
     explain: "STOP impose un arrêt complet avant de céder le passage.",
+    skill: "panneaux",
   },
   {
     prompt: "Que signifie ce panneau ?",
-    sign: {
-      data: { type: "interdiction", label: "", desc: "" },
-      icon: <Vitesse50Icon />,
-    },
-    options: [
-      "Vitesse minimale 50 km/h",
-      "Vitesse conseillée",
-      "Vitesse maximale 50 km/h",
-      "Fin de limitation",
-    ],
+    sign: { data: { type: "interdiction", label: "", desc: "" }, icon: <Vitesse50Icon /> },
+    options: ["Vitesse minimale 50 km/h", "Vitesse conseillée", "Vitesse maximale 50 km/h", "Fin de limitation"],
     answer: 2,
     explain: "Cercle rouge = interdiction de dépasser 50 km/h.",
+    skill: "vitesse",
   },
   {
     prompt: "Que signifie ce panneau ?",
-    sign: {
-      data: { type: "interdiction", label: "", desc: "" },
-      icon: <SensInterditIcon />,
-    },
+    sign: { data: { type: "interdiction", label: "", desc: "" }, icon: <SensInterditIcon /> },
     options: ["Voie bus", "Sens interdit", "Route barrée", "Stationnement"],
     answer: 1,
     explain: "Sens interdit à tous les véhicules.",
+    skill: "panneaux",
   },
   {
     prompt: "Que signifie ce panneau ?",
-    sign: {
-      data: { type: "danger", label: "", desc: "" },
-      icon: <VirageDroiteIcon />,
-    },
-    options: [
-      "Tournez à droite",
-      "Virage dangereux à droite",
-      "Sens interdit",
-      "Sortie",
-    ],
+    sign: { data: { type: "danger", label: "", desc: "" }, icon: <VirageDroiteIcon /> },
+    options: ["Tournez à droite", "Virage dangereux à droite", "Sens interdit", "Sortie"],
     answer: 1,
     explain: "Triangle rouge = danger : virage serré à droite.",
+    skill: "panneaux",
   },
   {
     prompt: "Que signifie ce panneau ?",
-    sign: {
-      data: { type: "obligation", label: "", desc: "" },
-      icon: <TournerDroiteIcon />,
-    },
-    options: [
-      "Virage interdit",
-      "Obligation de tourner à droite",
-      "Direction conseillée",
-      "Sortie",
-    ],
+    sign: { data: { type: "obligation", label: "", desc: "" }, icon: <TournerDroiteIcon /> },
+    options: ["Virage interdit", "Obligation de tourner à droite", "Direction conseillée", "Sortie"],
     answer: 1,
     explain: "Cercle bleu = obligation : tourner à droite.",
+    skill: "panneaux",
   },
   {
     prompt: "Que signifie ce panneau ?",
-    sign: {
-      data: { type: "danger", label: "", desc: "" },
-      icon: <PassageNiveauIcon />,
-    },
+    sign: { data: { type: "danger", label: "", desc: "" }, icon: <PassageNiveauIcon /> },
     options: ["Pont", "Tramway", "Passage à niveau", "Travaux"],
     answer: 2,
     explain: "Passage à niveau : soyez prêt à céder le passage au train.",
+    skill: "panneaux",
   },
   {
     prompt: "Que signifie ce panneau ?",
-    sign: {
-      data: { type: "danger", label: "", desc: "" },
-      icon: <ChausseeGlissanteIcon />,
-    },
+    sign: { data: { type: "danger", label: "", desc: "" }, icon: <ChausseeGlissanteIcon /> },
     options: ["Travaux", "Chaussée glissante", "Virages", "Dos d'âne"],
     answer: 1,
     explain: "Chaussée glissante : risque de perte d'adhérence.",
+    skill: "panneaux",
   },
   {
     prompt: "Que signifie ce panneau ?",
-    sign: {
-      data: { type: "interdiction", label: "", desc: "" },
-      icon: <StationnementInterditIcon />,
-    },
+    sign: { data: { type: "interdiction", label: "", desc: "" }, icon: <StationnementInterditIcon /> },
     options: ["Parking gratuit", "Réservé", "Stationnement interdit", "Parking"],
     answer: 2,
     explain: "Stationnement interdit : arrêt bref toléré, stationnement non.",
+    skill: "panneaux",
   },
   {
     prompt: "Que signifie ce panneau ?",
-    sign: {
-      data: { type: "indication", label: "", desc: "" },
-      icon: <HospitalIcon />,
-    },
+    sign: { data: { type: "indication", label: "", desc: "" }, icon: <HospitalIcon /> },
     options: ["Pharmacie", "Hôpital", "Centre commercial", "Aire de repos"],
     answer: 1,
     explain: "Hôpital à proximité : évitez de klaxonner.",
+    skill: "panneaux",
   },
   {
     prompt: "Que signifie ce panneau ?",
-    sign: {
-      data: { type: "indication", label: "", desc: "" },
-      icon: <ParkingIcon />,
-    },
+    sign: { data: { type: "indication", label: "", desc: "" }, icon: <ParkingIcon /> },
     options: ["Interdit", "Parking autorisé", "Péage", "Police"],
     answer: 1,
     explain: "Zone de stationnement autorisée.",
+    skill: "panneaux",
   },
   {
     prompt: "Que signifie ce panneau ?",
-    sign: {
-      data: { type: "interdiction", label: "", desc: "" },
-      icon: <Vitesse30Icon />,
-    },
+    sign: { data: { type: "interdiction", label: "", desc: "" }, icon: <Vitesse30Icon /> },
     options: ["Min 30 km/h", "Max 30 km/h", "Fin de 30", "Conseillé"],
     answer: 1,
     explain: "Zone limitée à 30 km/h.",
+    skill: "vitesse",
   },
   {
-    prompt:
-      "À une intersection sans signalisation, qui a la priorité au Bénin ?",
+    prompt: "À une intersection sans signalisation, qui a la priorité au Bénin ?",
     options: [
       "Le véhicule le plus rapide",
       "Le véhicule venant de la droite",
@@ -197,27 +192,22 @@ const BANK: Question[] = [
       "Le plus grand véhicule",
     ],
     answer: 1,
-    explain:
-      "La règle de la priorité à droite s'applique en l'absence de signalisation.",
+    explain: "La règle de la priorité à droite s'applique en l'absence de signalisation.",
+    skill: "priorites",
   },
   {
-    prompt:
-      "Quel est le taux d'alcoolémie maximal autorisé pour un conducteur ?",
+    prompt: "Quel est le taux d'alcoolémie maximal autorisé pour un conducteur ?",
     options: ["0,2 g/L", "0,5 g/L", "0,8 g/L", "1,0 g/L"],
     answer: 1,
     explain: "Au Bénin, la limite légale est de 0,5 g/L de sang.",
+    skill: "conduite",
   },
   {
     prompt: "Que devez-vous faire à l'approche d'un passage piéton ?",
-    options: [
-      "Accélérer",
-      "Klaxonner",
-      "Ralentir et céder le passage aux piétons",
-      "Continuer normalement",
-    ],
+    options: ["Accélérer", "Klaxonner", "Ralentir et céder le passage aux piétons", "Continuer normalement"],
     answer: 2,
-    explain:
-      "Le piéton engagé ou s'engageant a toujours la priorité sur le passage.",
+    explain: "Le piéton engagé ou s'engageant a toujours la priorité.",
+    skill: "usagers",
   },
   {
     prompt: "À quoi sert la ceinture de sécurité ?",
@@ -228,28 +218,23 @@ const BANK: Question[] = [
       "Seulement à l'avant",
     ],
     answer: 1,
-    explain:
-      "La ceinture est obligatoire à toutes les places et sauve des vies en cas de choc.",
+    explain: "La ceinture est obligatoire à toutes les places et sauve des vies.",
+    skill: "securite",
+    categories: ["B", "BE", "C", "D", "T"],
   },
   {
-    prompt:
-      "Quelle distance de sécurité respecter derrière un véhicule à 90 km/h ?",
+    prompt: "Quelle distance de sécurité respecter derrière un véhicule à 90 km/h ?",
     options: ["Environ 10 m", "Environ 25 m", "Environ 50 m", "Environ 100 m"],
     answer: 2,
-    explain:
-      "À 90 km/h, prévoir au moins 50 m (règle des 2 secondes minimum).",
+    explain: "À 90 km/h, prévoir au moins 50 m (règle des 2 secondes minimum).",
+    skill: "conduite",
   },
   {
     prompt: "Que signifie une ligne continue blanche au sol ?",
-    options: [
-      "Dépassement autorisé",
-      "Interdiction de franchir ou dépasser",
-      "Voie réservée",
-      "Stationnement",
-    ],
+    options: ["Dépassement autorisé", "Interdiction de franchir ou dépasser", "Voie réservée", "Stationnement"],
     answer: 1,
-    explain:
-      "La ligne continue ne doit jamais être franchie, même pour un dépassement.",
+    explain: "La ligne continue ne doit jamais être franchie.",
+    skill: "conduite",
   },
   {
     prompt: "Quand devez-vous allumer vos feux de croisement ?",
@@ -260,12 +245,11 @@ const BANK: Question[] = [
       "Seulement sur autoroute",
     ],
     answer: 1,
-    explain:
-      "Les feux de croisement sont obligatoires de nuit et dès que la visibilité est réduite.",
+    explain: "Obligatoires de nuit et dès que la visibilité est réduite.",
+    skill: "conduite",
   },
   {
-    prompt:
-      "À l'approche d'un véhicule prioritaire (ambulance, pompiers) sirène allumée, vous devez :",
+    prompt: "À l'approche d'un véhicule prioritaire sirène allumée, vous devez :",
     options: [
       "Accélérer pour dégager",
       "Vous serrer à droite et le laisser passer",
@@ -273,8 +257,8 @@ const BANK: Question[] = [
       "L'ignorer",
     ],
     answer: 1,
-    explain:
-      "Cédez le passage en vous rangeant sur la droite, sans manœuvre dangereuse.",
+    explain: "Cédez le passage en vous rangeant sur la droite, sans manœuvre dangereuse.",
+    skill: "usagers",
   },
   {
     prompt: "Un casque homologué est obligatoire pour :",
@@ -285,14 +269,140 @@ const BANK: Question[] = [
       "Aucun cas",
     ],
     answer: 1,
-    explain:
-      "Le casque est obligatoire pour le conducteur ET le passager d'un deux-roues motorisé.",
+    explain: "Obligatoire pour le conducteur ET le passager d'un deux-roues motorisé.",
+    skill: "securite",
+    categories: ["AM", "A1", "A"],
+  },
+  // --- Moto (AM, A1, A) ---
+  {
+    prompt: "En moto, la position idéale sur la chaussée en ligne droite est :",
+    options: [
+      "Au milieu de la voie",
+      "Sur la ligne médiane",
+      "Dans le tiers gauche de la voie pour être vu",
+      "Sur le bas-côté",
+    ],
+    answer: 2,
+    explain: "Se positionner dans le tiers gauche améliore la visibilité et anticipe les dangers.",
+    skill: "specifique",
+    categories: ["AM", "A1", "A"],
+  },
+  {
+    prompt: "En moto, un freinage d'urgence efficace se fait :",
+    options: [
+      "Uniquement avec le frein arrière",
+      "Uniquement avec le frein avant",
+      "Avec les deux freins, avant en priorité (~70%)",
+      "En débrayant seulement",
+    ],
+    answer: 2,
+    explain: "Le frein avant fournit l'essentiel de la puissance de freinage à moto.",
+    skill: "specifique",
+    categories: ["AM", "A1", "A"],
+  },
+  {
+    prompt: "L'équipement obligatoire du motard comprend :",
+    options: [
+      "Casque uniquement",
+      "Casque et gants homologués",
+      "Casque, gants, veste renforcée",
+      "Rien de spécial",
+    ],
+    answer: 1,
+    explain: "Casque + gants homologués sont exigés ; le reste est vivement recommandé.",
+    skill: "specifique",
+    categories: ["AM", "A1", "A"],
+  },
+  // --- Voiture (B, BE) ---
+  {
+    prompt: "En voiture, avant de démarrer vous devez d'abord :",
+    options: [
+      "Boucler votre ceinture et régler rétroviseurs et siège",
+      "Allumer la radio",
+      "Enclencher la 2e",
+      "Démarrer immédiatement",
+    ],
+    answer: 0,
+    explain: "Réglages puis ceinture avant tout démarrage.",
+    skill: "specifique",
+    categories: ["B", "BE"],
+  },
+  {
+    prompt: "Sur autoroute, la vitesse maximale voiture au Bénin est généralement :",
+    options: ["90 km/h", "110 km/h", "120 km/h", "130 km/h"],
+    answer: 2,
+    explain: "120 km/h sur autoroute (110 km/h par temps de pluie).",
+    skill: "specifique",
+    categories: ["B", "BE"],
+  },
+  {
+    prompt: "Un créneau réussi commence par :",
+    options: [
+      "Se coller à la voiture de devant",
+      "Se mettre parallèle à la voiture de devant avec 50 cm d'écart",
+      "Braquer immédiatement",
+      "Reculer sans regarder",
+    ],
+    answer: 1,
+    explain: "Position parallèle à ~50 cm avant de tourner le volant.",
+    skill: "specifique",
+    categories: ["B", "BE"],
+  },
+  // --- Poids lourd (C) ---
+  {
+    prompt: "Pour un poids lourd, le temps de pause obligatoire après 4h30 de conduite est de :",
+    options: ["15 min", "30 min", "45 min", "1 h"],
+    answer: 2,
+    explain: "45 minutes de pause, fractionnables en 15 + 30 min.",
+    skill: "specifique",
+    categories: ["C"],
+  },
+  {
+    prompt: "L'angle mort d'un poids lourd se situe surtout :",
+    options: [
+      "Uniquement derrière",
+      "Devant, à droite et à l'arrière",
+      "Uniquement à gauche",
+      "Nulle part",
+    ],
+    answer: 1,
+    explain: "Angles morts très étendus : devant, à droite et à l'arrière du camion.",
+    skill: "specifique",
+    categories: ["C", "D"],
+  },
+  // --- Transport en commun (D) ---
+  {
+    prompt: "Un conducteur de transport en commun doit vérifier avant chaque service :",
+    options: [
+      "Uniquement le carburant",
+      "État général du véhicule, freins, éclairage, portes",
+      "Uniquement les billets",
+      "Rien",
+    ],
+    answer: 1,
+    explain: "Contrôle complet obligatoire avant la mise en service.",
+    skill: "specifique",
+    categories: ["D"],
+  },
+  // --- Agricole (T) ---
+  {
+    prompt: "Un tracteur agricole sur la route doit :",
+    options: [
+      "Rouler au milieu",
+      "Se serrer à droite et faciliter les dépassements",
+      "Bloquer la circulation",
+      "Rouler sans signalisation",
+    ],
+    answer: 1,
+    explain: "Serrer à droite et faciliter le passage des véhicules plus rapides.",
+    skill: "specifique",
+    categories: ["T"],
   },
 ];
 
 const EXAM_SIZE = 20;
-const DURATION_SECONDS = 25 * 60; // 25 minutes
-const PASS_RATIO = 0.8; // 80%
+const DURATION_SECONDS = 25 * 60;
+const PASS_RATIO = 0.8;
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -303,9 +413,10 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-function buildDeck(): Question[] {
-  return shuffle(BANK)
-    .slice(0, Math.min(EXAM_SIZE, BANK.length))
+function buildDeck(cat: CategoryCode): Question[] {
+  const eligible = BANK.filter((q) => !q.categories || q.categories.includes(cat));
+  return shuffle(eligible)
+    .slice(0, Math.min(EXAM_SIZE, eligible.length))
     .map((q) => {
       const idx = shuffle(q.options.map((_, i) => i));
       return {
@@ -315,6 +426,7 @@ function buildDeck(): Question[] {
       };
     });
 }
+
 
 function genCertificateCode() {
   const r = Math.random().toString(36).slice(2, 8).toUpperCase();
