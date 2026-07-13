@@ -742,22 +742,13 @@ function ExamenPage() {
                       placeholder="Ex. Afiwa KOUASSI"
                       className="mt-1 w-full rounded-md bg-white px-3 py-2 text-sm ring-1 ring-charcoal/15 focus:outline-none focus:ring-benin-green"
                     />
-                    <label className="mt-3 block text-xs font-medium text-charcoal/70">
-                      Catégorie de permis évaluée
-                    </label>
-                    <select
-                      value={category}
-                      onChange={(e) => setCategory(e.target.value)}
-                      className="mt-1 w-full rounded-md bg-white px-3 py-2 text-sm ring-1 ring-charcoal/15"
-                    >
-                      {["AM", "A1", "A2", "A", "B1", "B", "BE", "C1", "C", "CE", "D1", "D", "DE", "T"].map(
-                        (c) => (
-                          <option key={c} value={c}>
-                            {c}
-                          </option>
-                        ),
-                      )}
-                    </select>
+                    <p className="mt-3 text-xs text-charcoal/70">
+                      Catégorie évaluée :{" "}
+                      <span className="font-semibold text-charcoal">
+                        {CATEGORIES.find((c) => c.code === category)?.label ?? category}
+                      </span>
+                    </p>
+
                     <button
                       type="button"
                       onClick={issueCertificate}
