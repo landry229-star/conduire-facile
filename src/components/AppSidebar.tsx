@@ -22,6 +22,7 @@ import {
   TrafficCone,
   Award,
   ShieldCheck,
+  ListChecks,
   LogOut,
   Signpost,
 } from "lucide-react";
@@ -125,6 +126,14 @@ export function AppSidebar({ isStaff }: { isStaff: boolean }) {
                     <Link to="/admin">
                       <ShieldCheck className="h-4 w-4" />
                       <span>Espace admin</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={isActive("/admin/categories")} tooltip="Catégories & compétences">
+                    <Link to="/admin/categories">
+                      <ListChecks className="h-4 w-4" />
+                      <span>Catégories</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
