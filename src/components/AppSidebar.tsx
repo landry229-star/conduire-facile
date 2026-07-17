@@ -23,6 +23,7 @@ import {
   Award,
   ShieldCheck,
   ListChecks,
+  HelpCircle,
   LogOut,
   Signpost,
 } from "lucide-react";
