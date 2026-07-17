@@ -23,6 +23,7 @@ import {
   Award,
   ShieldCheck,
   ListChecks,
+  HelpCircle,
   LogOut,
   Signpost,
 } from "lucide-react";
@@ -134,6 +135,14 @@ export function AppSidebar({ isStaff }: { isStaff: boolean }) {
                     <Link to="/admin/categories">
                       <ListChecks className="h-4 w-4" />
                       <span>Catégories</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={isActive("/admin/questions")} tooltip="Banque de questions">
+                    <Link to="/admin/questions">
+                      <HelpCircle className="h-4 w-4" />
+                      <span>Questions</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
