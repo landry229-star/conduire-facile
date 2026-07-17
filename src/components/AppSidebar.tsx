@@ -129,6 +129,14 @@ export function AppSidebar({ isStaff }: { isStaff: boolean }) {
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={isActive("/admin/categories")} tooltip="Catégories & compétences">
+                    <Link to="/admin/categories">
+                      <ListChecks className="h-4 w-4" />
+                      <span>Catégories</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
