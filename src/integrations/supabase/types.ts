@@ -113,6 +113,86 @@ export type Database = {
         }
         Relationships: []
       }
+      exam_question_categories: {
+        Row: {
+          category_id: string
+          question_id: string
+        }
+        Insert: {
+          category_id: string
+          question_id: string
+        }
+        Update: {
+          category_id?: string
+          question_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exam_question_categories_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "exam_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "exam_question_categories_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "exam_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      exam_questions: {
+        Row: {
+          active: boolean
+          choices: Json
+          correct_index: number
+          created_at: string
+          created_by: string | null
+          difficulty: string
+          explanation: string | null
+          id: string
+          prompt: string
+          skill_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          choices?: Json
+          correct_index?: number
+          created_at?: string
+          created_by?: string | null
+          difficulty?: string
+          explanation?: string | null
+          id?: string
+          prompt: string
+          skill_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          choices?: Json
+          correct_index?: number
+          created_at?: string
+          created_by?: string | null
+          difficulty?: string
+          explanation?: string | null
+          id?: string
+          prompt?: string
+          skill_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exam_questions_skill_id_fkey"
+            columns: ["skill_id"]
+            isOneToOne: false
+            referencedRelation: "exam_skills"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       exam_skills: {
         Row: {
           category_id: string
