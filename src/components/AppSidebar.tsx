@@ -138,6 +138,14 @@ export function AppSidebar({ isStaff }: { isStaff: boolean }) {
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={isActive("/admin/questions")} tooltip="Banque de questions">
+                    <Link to="/admin/questions">
+                      <HelpCircle className="h-4 w-4" />
+                      <span>Questions</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
