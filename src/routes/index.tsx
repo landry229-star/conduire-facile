@@ -9,6 +9,8 @@ import {
   SensUniqueIcon,
 } from "@/components/TrafficSign";
 import { AuthNavButton } from "@/components/AuthNavButton";
+import { PublicFooter } from "@/components/PublicShell";
+
 
 
 
