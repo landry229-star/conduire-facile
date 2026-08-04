@@ -29,6 +29,7 @@ import {
 import type { SignData } from "@/components/TrafficSign";
 
 export const Route = createFileRoute("/examen")({
+  ssr: false,
   head: () => ({
     meta: [
       { title: "Session d'examen blanc — L'Excellence Auto-École" },

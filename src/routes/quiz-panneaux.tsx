@@ -25,6 +25,7 @@ import {
 import type { SignData } from "@/components/TrafficSign";
 
 export const Route = createFileRoute("/quiz-panneaux")({
+  ssr: false,
   head: () => ({
     meta: [
       { title: "Quiz Panneaux de signalisation — L'Excellence Auto-École" },
