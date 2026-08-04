@@ -16,6 +16,7 @@ import { Route as PanneauxRouteImport } from './routes/panneaux'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as ExamenRouteImport } from './routes/examen'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
@@ -59,6 +60,11 @@ const ExamenRoute = ExamenRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfidentialiteRoute = ConfidentialiteRouteImport.update({
+  id: '/confidentialite',
+  path: '/confidentialite',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -112,6 +118,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
   '/auth': typeof AuthRoute
+  '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
   '/examen': typeof ExamenRoute
   '/mentions-legales': typeof MentionsLegalesRoute
@@ -129,6 +136,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
   '/auth': typeof AuthRoute
+  '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
   '/examen': typeof ExamenRoute
   '/mentions-legales': typeof MentionsLegalesRoute
@@ -148,6 +156,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/a-propos': typeof AProposRoute
   '/auth': typeof AuthRoute
+  '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
   '/examen': typeof ExamenRoute
   '/mentions-legales': typeof MentionsLegalesRoute
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
     | '/'
     | '/a-propos'
     | '/auth'
+    | '/confidentialite'
     | '/contact'
     | '/examen'
     | '/mentions-legales'
@@ -184,6 +194,7 @@ export interface FileRouteTypes {
     | '/'
     | '/a-propos'
     | '/auth'
+    | '/confidentialite'
     | '/contact'
     | '/examen'
     | '/mentions-legales'
@@ -202,6 +213,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/a-propos'
     | '/auth'
+    | '/confidentialite'
     | '/contact'
     | '/examen'
     | '/mentions-legales'
@@ -221,6 +233,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AProposRoute: typeof AProposRoute
   AuthRoute: typeof AuthRoute
+  ConfidentialiteRoute: typeof ConfidentialiteRoute
   ContactRoute: typeof ContactRoute
   ExamenRoute: typeof ExamenRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
@@ -279,6 +292,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/confidentialite': {
+      id: '/confidentialite'
+      path: '/confidentialite'
+      fullPath: '/confidentialite'
+      preLoaderRoute: typeof ConfidentialiteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -380,6 +400,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AProposRoute: AProposRoute,
   AuthRoute: AuthRoute,
+  ConfidentialiteRoute: ConfidentialiteRoute,
   ContactRoute: ContactRoute,
   ExamenRoute: ExamenRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
