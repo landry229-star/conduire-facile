@@ -580,19 +580,8 @@ function Index() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-charcoal/5 bg-zinc-50 px-5 py-10">
-        <div className="mb-6 flex items-center gap-2">
-          <span className="size-4 bg-benin-green" />
-          <span className="size-4 bg-benin-yellow" />
-          <span className="size-4 bg-benin-red" />
-        </div>
-        <p className="text-[11px] leading-relaxed text-charcoal/50">
-          © {new Date().getFullYear()} L'Excellence Auto-École. Agrément Ministériel
-          N°2024/MT-042.
-          <br />
-          Cotonou, République du Bénin · +229 90 00 00 00
-        </p>
-      </footer>
+      <PublicFooter />
+
     </div>
   );
 }
