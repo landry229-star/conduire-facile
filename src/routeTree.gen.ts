@@ -13,8 +13,12 @@ import { Route as TheorieRouteImport } from './routes/theorie'
 import { Route as QuizPanneauxRouteImport } from './routes/quiz-panneaux'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as PanneauxRouteImport } from './routes/panneaux'
+import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as ExamenRouteImport } from './routes/examen'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedProfilRouteImport } from './routes/_authenticated/profil'
@@ -43,14 +47,34 @@ const PanneauxRoute = PanneauxRouteImport.update({
   path: '/panneaux',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
+  id: '/mentions-legales',
+  path: '/mentions-legales',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExamenRoute = ExamenRouteImport.update({
   id: '/examen',
   path: '/examen',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfidentialiteRoute = ConfidentialiteRouteImport.update({
+  id: '/confidentialite',
+  path: '/confidentialite',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AProposRoute = AProposRouteImport.update({
+  id: '/a-propos',
+  path: '/a-propos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -92,8 +116,12 @@ const AuthenticatedAdminCategoriesRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
   '/auth': typeof AuthRoute
+  '/confidentialite': typeof ConfidentialiteRoute
+  '/contact': typeof ContactRoute
   '/examen': typeof ExamenRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
   '/quiz-panneaux': typeof QuizPanneauxRoute
@@ -106,8 +134,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
   '/auth': typeof AuthRoute
+  '/confidentialite': typeof ConfidentialiteRoute
+  '/contact': typeof ContactRoute
   '/examen': typeof ExamenRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
   '/quiz-panneaux': typeof QuizPanneauxRoute
@@ -122,8 +154,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/a-propos': typeof AProposRoute
   '/auth': typeof AuthRoute
+  '/confidentialite': typeof ConfidentialiteRoute
+  '/contact': typeof ContactRoute
   '/examen': typeof ExamenRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
   '/quiz-panneaux': typeof QuizPanneauxRoute
@@ -138,8 +174,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/a-propos'
     | '/auth'
+    | '/confidentialite'
+    | '/contact'
     | '/examen'
+    | '/mentions-legales'
     | '/panneaux'
     | '/quiz'
     | '/quiz-panneaux'
@@ -152,8 +192,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/a-propos'
     | '/auth'
+    | '/confidentialite'
+    | '/contact'
     | '/examen'
+    | '/mentions-legales'
     | '/panneaux'
     | '/quiz'
     | '/quiz-panneaux'
@@ -167,8 +211,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/a-propos'
     | '/auth'
+    | '/confidentialite'
+    | '/contact'
     | '/examen'
+    | '/mentions-legales'
     | '/panneaux'
     | '/quiz'
     | '/quiz-panneaux'
@@ -183,8 +231,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AProposRoute: typeof AProposRoute
   AuthRoute: typeof AuthRoute
+  ConfidentialiteRoute: typeof ConfidentialiteRoute
+  ContactRoute: typeof ContactRoute
   ExamenRoute: typeof ExamenRoute
+  MentionsLegalesRoute: typeof MentionsLegalesRoute
   PanneauxRoute: typeof PanneauxRoute
   QuizRoute: typeof QuizRoute
   QuizPanneauxRoute: typeof QuizPanneauxRoute
@@ -221,6 +273,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanneauxRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mentions-legales': {
+      id: '/mentions-legales'
+      path: '/mentions-legales'
+      fullPath: '/mentions-legales'
+      preLoaderRoute: typeof MentionsLegalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/examen': {
       id: '/examen'
       path: '/examen'
@@ -228,11 +287,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExamenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/confidentialite': {
+      id: '/confidentialite'
+      path: '/confidentialite'
+      fullPath: '/confidentialite'
+      preLoaderRoute: typeof ConfidentialiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/a-propos': {
+      id: '/a-propos'
+      path: '/a-propos'
+      fullPath: '/a-propos'
+      preLoaderRoute: typeof AProposRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -318,8 +398,12 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AProposRoute: AProposRoute,
   AuthRoute: AuthRoute,
+  ConfidentialiteRoute: ConfidentialiteRoute,
+  ContactRoute: ContactRoute,
   ExamenRoute: ExamenRoute,
+  MentionsLegalesRoute: MentionsLegalesRoute,
   PanneauxRoute: PanneauxRoute,
   QuizRoute: QuizRoute,
   QuizPanneauxRoute: QuizPanneauxRoute,
@@ -328,13 +412,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
