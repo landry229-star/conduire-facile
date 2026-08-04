@@ -13,6 +13,7 @@ import { Route as TheorieRouteImport } from './routes/theorie'
 import { Route as QuizPanneauxRouteImport } from './routes/quiz-panneaux'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as PanneauxRouteImport } from './routes/panneaux'
+import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as ExamenRouteImport } from './routes/examen'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -43,6 +44,11 @@ const QuizRoute = QuizRouteImport.update({
 const PanneauxRoute = PanneauxRouteImport.update({
   id: '/panneaux',
   path: '/panneaux',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
+  id: '/mentions-legales',
+  path: '/mentions-legales',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExamenRoute = ExamenRouteImport.update({
@@ -108,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/examen': typeof ExamenRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
   '/quiz-panneaux': typeof QuizPanneauxRoute
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/examen': typeof ExamenRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
   '/quiz-panneaux': typeof QuizPanneauxRoute
@@ -142,6 +150,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/examen': typeof ExamenRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
   '/quiz-panneaux': typeof QuizPanneauxRoute
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/examen'
+    | '/mentions-legales'
     | '/panneaux'
     | '/quiz'
     | '/quiz-panneaux'
@@ -176,6 +186,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/examen'
+    | '/mentions-legales'
     | '/panneaux'
     | '/quiz'
     | '/quiz-panneaux'
@@ -193,6 +204,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/examen'
+    | '/mentions-legales'
     | '/panneaux'
     | '/quiz'
     | '/quiz-panneaux'
@@ -211,6 +223,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   ExamenRoute: typeof ExamenRoute
+  MentionsLegalesRoute: typeof MentionsLegalesRoute
   PanneauxRoute: typeof PanneauxRoute
   QuizRoute: typeof QuizRoute
   QuizPanneauxRoute: typeof QuizPanneauxRoute
@@ -245,6 +258,13 @@ declare module '@tanstack/react-router' {
       path: '/panneaux'
       fullPath: '/panneaux'
       preLoaderRoute: typeof PanneauxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentions-legales': {
+      id: '/mentions-legales'
+      path: '/mentions-legales'
+      fullPath: '/mentions-legales'
+      preLoaderRoute: typeof MentionsLegalesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/examen': {
@@ -362,6 +382,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   ExamenRoute: ExamenRoute,
+  MentionsLegalesRoute: MentionsLegalesRoute,
   PanneauxRoute: PanneauxRoute,
   QuizRoute: QuizRoute,
   QuizPanneauxRoute: QuizPanneauxRoute,
