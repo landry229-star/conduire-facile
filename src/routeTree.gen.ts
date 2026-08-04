@@ -14,6 +14,7 @@ import { Route as QuizPanneauxRouteImport } from './routes/quiz-panneaux'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as PanneauxRouteImport } from './routes/panneaux'
 import { Route as ExamenRouteImport } from './routes/examen'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -46,6 +47,11 @@ const PanneauxRoute = PanneauxRouteImport.update({
 const ExamenRoute = ExamenRouteImport.update({
   id: '/examen',
   path: '/examen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -93,6 +99,7 @@ const AuthenticatedAdminCategoriesRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
   '/examen': typeof ExamenRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
   '/examen': typeof ExamenRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
@@ -123,6 +131,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
   '/examen': typeof ExamenRoute
   '/panneaux': typeof PanneauxRoute
   '/quiz': typeof QuizRoute
@@ -139,6 +148,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/contact'
     | '/examen'
     | '/panneaux'
     | '/quiz'
@@ -153,6 +163,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/contact'
     | '/examen'
     | '/panneaux'
     | '/quiz'
@@ -168,6 +179,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/contact'
     | '/examen'
     | '/panneaux'
     | '/quiz'
@@ -184,6 +196,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  ContactRoute: typeof ContactRoute
   ExamenRoute: typeof ExamenRoute
   PanneauxRoute: typeof PanneauxRoute
   QuizRoute: typeof QuizRoute
@@ -226,6 +239,13 @@ declare module '@tanstack/react-router' {
       path: '/examen'
       fullPath: '/examen'
       preLoaderRoute: typeof ExamenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -319,6 +339,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  ContactRoute: ContactRoute,
   ExamenRoute: ExamenRoute,
   PanneauxRoute: PanneauxRoute,
   QuizRoute: QuizRoute,
@@ -328,13 +349,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
